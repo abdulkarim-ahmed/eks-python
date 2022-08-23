@@ -6,7 +6,7 @@ spec:
   type: LoadBalancer
   ports:
     - port: 80
-      targetPort: 8080
+      targetPort: 5000
   selector:
     app: python-k8s
 ---
@@ -28,4 +28,4 @@ spec:
         - name: python-k8s
           image: CONTAINER_IMAGE
           ports:
-            - containerPort: 8080
+            - containerPort: 5000
