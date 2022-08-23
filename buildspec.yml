@@ -11,6 +11,7 @@ phases:
       - apt-get update && apt-get -y install jq golang python3-pip python3-dev && pip3 install --upgrade awscli
   pre_build:
       commands:
+        - kubectl version
         - TAG="$REPOSITORY_NAME.$REPOSITORY_BRANCH.$ENVIRONMENT_NAME.$(date +%Y-%m-%d.%H.%M.%S).$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | head -c 8)"
         - sed -i 's@CONTAINER_IMAGE@'"$REPOSITORY_URI:$TAG"'@' k8s.yml
         - $(aws ecr get-login --no-include-email)
@@ -27,7 +28,7 @@ phases:
       - export AWS_SECRET_ACCESS_KEY="$(echo ${CREDENTIALS} | jq -r '.Credentials.SecretAccessKey')"
       - export AWS_SESSION_TOKEN="$(echo ${CREDENTIALS} | jq -r '.Credentials.SessionToken')"
       - export AWS_EXPIRATION=$(echo ${CREDENTIALS} | jq -r '.Credentials.Expiration')
-      - aws eks update-kubeconfig --name $EKS_CLUSTER_NAME
+      - aws eks update-kubeconfig --region $REGION --name $EKS_CLUSTER_NAME
       - kubectl apply -f k8s.yml
       - printf '[{"name":"k8s","imageUri":"%s"}]' $REPOSITORY_URI:$TAG > build.json
 artifacts:
