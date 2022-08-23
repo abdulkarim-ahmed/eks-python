@@ -10,7 +10,7 @@ phases:
       - export PATH=$PWD/bin:$PATH
       - apt-get update && apt-get -y install jq python3-pip python3-dev
       - sudo rm -rf /usr/local/aws
-      - pip3 uninstall awscli
+      - pip3 uninstall awscli -y
       - curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
       - unzip awscliv2.zip
       - ./aws/install
