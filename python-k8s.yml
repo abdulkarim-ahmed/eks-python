@@ -27,5 +27,9 @@ spec:
       containers:
         - name: python-k8s
           image: CONTAINER_IMAGE
+          securityContext:
+            privileged: false
+            readOnlyRootFilesystem: true
+            allowPrivilegeEscalation: false
           ports:
             - containerPort: 5000
