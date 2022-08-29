@@ -12,12 +12,13 @@ phases:
     commands:
       - echo Build started on `date`
       - echo Building the Docker image...          
-      - docker build --tag $IMAGE_REPO_NAME:$TAG .  
+      - docker build -t eksws-codepipeline-ecrdockerrepository-n8c8jvw32szc .
+      - docker tag eksws-codepipeline-ecrdockerrepository-n8c8jvw32szc:latest 059242425524.dkr.ecr.us-east-2.amazonaws.com/eksws-codepipeline-ecrdockerrepository-n8c8jvw32szc:latest      
   post_build:
     commands:
       - echo Build completed on `date`
       - echo Pushing the Docker image...
-      - docker push $IMAGE_REPO_NAME:$TAG
+      - docker push 059242425524.dkr.ecr.us-east-2.amazonaws.com/eksws-codepipeline-ecrdockerrepository-n8c8jvw32szc:latest
       - echo Writing image definitions file...
       - printf '[{"name":"%s","imageUri":"%s"}]' $CONTAINER_NAME $REPOSITORY_URI:$IMAGE_TAG > imagedefinitions.json
 artifacts:
