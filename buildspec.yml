@@ -20,6 +20,6 @@ phases:
       - echo Pushing the Docker image...
       - docker push 059242425524.dkr.ecr.us-east-2.amazonaws.com/eksws-codepipeline-ecrdockerrepository-n8c8jvw32szc:latest
       - echo Writing image definitions file...
-      - printf '[{"name":"%s","imageUri":"%s"}]' $CONTAINER_NAME $REPOSITORY_URI:$IMAGE_TAG > imagedefinitions.json
+      - printf '[{"name":"%s","imageUri":"%s"}]' $CONTAINER_NAME 059242425524.dkr.ecr.us-east-2.amazonaws.com/eksws-codepipeline-ecrdockerrepository-n8c8jvw32szc:latest > imagedefinitions.json
 artifacts:
     files: imagedefinitions.json
